@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dead by Daylight Championship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Allgemeines Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #f0f0f0;
+            background: #0b0c0b;
+            overflow-x: hidden;
+        }
+
+        /* Header und Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #f0f0f0;
+            padding: 10px 15px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            border: 2px solid #f71515;
+        }
+
+        /* Hauptinhalt */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+            background: url('FogAwaitsWebsite.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed; /* Keep background fixed */
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+            z-index: 1;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #9f1414;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #9f1414;
+        }
+
+        /* Sektionen */
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section h2 {
+            color: #9f1414;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .carousel-container {
+    display: flex;
+    justify-content: center; /* Center the carousel */
+    align-items: center;
+    width: 50%; /* Use full width on smaller screens */
+    max-width: 1200px; /* Maintain a max width for larger screens */
+    margin: 0 auto; /* Center the carousel in the page */
+}
+
+.carousel-slide {
+    flex: -1; /* Take equal space */
+    transition: transform 0.5s ease;
+    margin: 0; /* No spacing between images */
+    opacity: 0.6; /* Dim non-active images */
+    text-align: center; /* Center text within the slide */
+    cursor: pointer; /* Change cursor to indicate clickable */
+}
+
+.active-slide {
+    opacity: 1; /* Highlight active slide */
+    transform: scale(1.05); /* Slightly enlarge active slide */
+}
+
+.carousel-slide img {
+    width: 75%; /* Full width for images */
+    border-radius: 20px;
+    transition: transform 0.5s ease; /* Smooth scaling effect */
+}
+
+/* Add scaling effect for images in active slide */
+.carousel-slide.active-slide img {
+    transform: scale(1.5); /* Increase the size of the active slide image */
+}
+
+
+
+        /* Navigation buttons */
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.5em;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: row;
+                justify-content: space-between;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 10px;
+            }
+
+            nav a {
+                padding: 10px 5px;
+                font-size: 1em;
+            }
+
+            .carousel-container {
+                flex-direction: column; /* Stack images on small screens */
+            }
+
+            .carousel-slide {
+                width: 80%; /* Adjust width on small screens */
+            }
+        }
+
+        /* Google Form Styling */
+        #form-container {
+            display: none;
+            margin: 20px auto;
+            max-width: 1000px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+    <script>
+    let slideIndex = 0;
+
+    function showSlides() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        slides.forEach((slide) => {
+            slide.classList.remove('active-slide');
+        });
+
+        slideIndex++;
+        if (slideIndex >= slides.length) {
+            slideIndex = 0;
+        }
+        slides[slideIndex].classList.add('active-slide');
+    }
+
+    // Click event for manual slide change
+    function setSlide(n) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        slides.forEach((slide) => {
+            slide.classList.remove('active-slide');
+        });
+
+        slideIndex = n;
+        slides[slideIndex].classList.add('active-slide');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showSlides();
+        setInterval(showSlides, 3000); // Change image every 3 seconds
+
+        // Add click event listener to each slide for manual switching
+        const slides = document.querySelectorAll('.carousel-slide');
+        slides.forEach((slide, index) => {
+            slide.addEventListener('click', () => {
+                setSlide(index); // Switch to clicked slide
+            });
+        });
+    });
+
+    function toggleForm() {
+        const formContainer = document.getElementById('form-container');
+        const registerSection = document.getElementById('register');
+        if (formContainer.style.display === "none" || formContainer.style.display === "") {
+            formContainer.style.display = "block";
+            registerSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            formContainer.style.display = "none";
+        }
+    }
+</script>
+
+</head>
+<body id="top">
+
+    <header>
+        <h1 style="color: white;"><a href="#top" style="color: white; text-decoration: none;">Dead by Daylight Championship</a></h1>
+        <nav>
+            <a href="#about">About Us</a>
+            <a href="#rules">Guidelines</a>
+            <a href="#register">Registration</a>
+            <a href="#contact">Contact</a>
+            <span style="border: 2px solid transparent; border-radius: 5px; padding: 10px;">
+                <a href="indextestconfirmEquTest.html">Perk Selector</a>
+            </span>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Dive into a new experience of Dead by Daylight and its competitive aspect side of the game</h1>
+        <p></p>
+        <button class="cta-button" onclick="toggleForm()">Register Now</button>
+        <a href="indextestconfirmEquTest.html" class="cta-button">Go to Perk Selector</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2>About DbDCSS</h2>
+        <p>The Entitus invites you to test your skills and see who is worthy of the Fog! The Dead by Daylight Championship brings together the best players to compete in an exciting contest. Whether killer or survivor - choose your side and fight for victory.</p>
+    </section>
+
+    <!-- Carousel Section -->
+    <div class="carousel-container">
+        <div class="carousel-slide active-slide">
+            <img src="Explanation.png" alt="Image 1">
+        </div>
+        <div class="carousel-slide">
+            <img src="Explanation1.png" alt="Image 2">
+        </div>
+        <div class="carousel-slide">
+            <img src="Explanation2.png" alt="Image 3">
+        </div>
+
+        <button class="nav-button prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="nav-button next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <section id="rules" class="section">
+        <h2>Guidelines</h2>
+        <p>Make sure to read the rules and guidelines of the tournament before signing up. This will ensure a smooth experience for everyone involved!</p>
+    </section>
+
+    <section id="register" class="section">
+        <h2>Register</h2>
+        <p>To participate in the tournament, fill out the form below:</p>
+        <button class="cta-button" onclick="toggleForm()">Register Now</button>
+        <div id="form-container">
+            <iframe title="Registration Form" src="https://docs.google.com/forms/d/e/1FAIpQLSdF67Vs69ig1jOnOnOa0HhF4RdMRZ7TEE0SchxJge3ohGf5_A/viewform?embedded=true">Loading…</iframe>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p>For questions or further information, please reach out to us through our social media channels.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Dead by Daylight Championship. All rights reserved.</p>
+    </footer>
+</body>
+</html>
