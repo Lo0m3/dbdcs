@@ -118,38 +118,38 @@
         }
 
         .carousel-container {
-    display: flex;
-    justify-content: center; /* Center the carousel */
-    align-items: center;
-    width: 50%; /* Use full width on smaller screens */
-    max-width: 1200px; /* Maintain a max width for larger screens */
-    margin: 0 auto; /* Center the carousel in the page */
-}
-
-.carousel-slide {
-    flex: -1; /* Take equal space */
-    transition: transform 0.5s ease;
-    margin: 0; /* No spacing between images */
-    opacity: 0.6; /* Dim non-active images */
-    text-align: center; /* Center text within the slide */
-    cursor: pointer; /* Change cursor to indicate clickable */
-}
-
-.active-slide {
-    opacity: 1; /* Highlight active slide */
-    transform: scale(1.05); /* Slightly enlarge active slide */
-}
-
-.carousel-slide img {
-    width: 75%; /* Full width for images */
-    border-radius: 20px;
-    transition: transform 0.5s ease; /* Smooth scaling effect */
-}
-
-/* Add scaling effect for images in active slide */
-.carousel-slide.active-slide img {
-    transform: scale(1.5); /* Increase the size of the active slide image */
-}
+            display: flex;
+            justify-content: center; /* Center the carousel */
+            align-items: center;
+            width: 50%; /* Use full width on smaller screens */
+            max-width: 1200px; /* Maintain a max width for larger screens */
+            margin: 0 auto; /* Center the carousel in the page */
+        }
+        
+        .carousel-slide {
+            flex: -1; /* Take equal space */
+            transition: transform 0.5s ease;
+            margin: 0; /* No spacing between images */
+            opacity: 0.6; /* Dim non-active images */
+            text-align: center; /* Center text within the slide */
+            cursor: pointer; /* Change cursor to indicate clickable */
+        }
+        
+        .active-slide {
+            opacity: 1; /* Highlight active slide */
+            transform: scale(1.05); /* Slightly enlarge active slide */
+        }
+        
+        .carousel-slide img {
+            width: 75%; /* Full width for images */
+            border-radius: 20px;
+            transition: transform 0.5s ease; /* Smooth scaling effect */
+        }
+        
+        /* Add scaling effect for images in active slide */
+        .carousel-slide.active-slide img {
+            transform: scale(1.5); /* Increase the size of the active slide image */
+        }
 
 
 
@@ -184,28 +184,28 @@
             color: #aaa;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: row;
-                justify-content: space-between;
-                overflow-x: auto;
-                white-space: nowrap;
-                padding: 10px;
-            }
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: row;
+            justify-content: space-between;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+        }
 
-            nav a {
-                padding: 10px 5px;
-                font-size: 1em;
-            }
+        nav a {
+            padding: 10px 5px;
+            font-size: 1em;
+        }
 
-            .carousel-container {
-                flex-direction: column; /* Stack images on small screens */
-            }
+        .carousel-container {
+            flex-direction: column; /* Stack images on small screens */
+        }
 
-            .carousel-slide {
-                width: 80%; /* Adjust width on small screens */
-            }
+        .carousel-slide {
+            width: 80%; /* Adjust width on small screens */
+        }
         }
 
         /* Google Form Styling */
@@ -221,6 +221,18 @@
             height: 600px;
             border: none;
         }
+        /* Passt Höhe und Position der Hero-Sektion auf mobilen Geräten */
+        .hero {
+            margin-top: 100px; /* Abstand hinzufügen, um den fixierten Header zu berücksichtigen */
+        }
+
+        /* Zusätzliche Anpassung für die Hero-Sektion in der mobilen Ansicht */
+        @media (max-width: 768px) {
+            .hero {
+                margin-top: 160px; /* Etwas wenig mehr Abstand auf mobilen Geräten */
+            }
+        }
+
     </style>
     <script>
     let slideIndex = 0;
