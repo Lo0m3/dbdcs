@@ -232,6 +232,91 @@
                 margin-top: 160px; /* Etwas wenig mehr Abstand auf mobilen Geräten */
             }
         }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.5);
+            opacity: 0.8;
+        }
+
+        .social-icons img {
+            width: 50px; /* Adjust size of the icons */
+            height: 50px;
+        }
+
+        #contact {
+            max-width: 100%;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        form input,
+        form textarea {
+            width: 100%; /* Ensure input fields span full width */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        form button {
+            background-color: #9f1414;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            form {
+                padding: 0 10px;
+            }
+
+            form button {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form input,
+            form textarea {
+                font-size: 0.9em;
+            }
+
+            form button {
+                font-size: 0.8em;
+            }
+        }
+
 
     </style>
     <script>
@@ -292,18 +377,20 @@
     <header>
         <h1 style="color: white;"><a href="#top" style="color: white; text-decoration: none;">Dead by Daylight Championship</a></h1>
         <nav>
+            <span style="border: 2px solid transparent; border-radius: 5px; padding: 10px;">
+            <a href="PerkSelector.html">Perk Selector</a>
+            </span>
             <a href="#about">About Us</a>
-            <a href="#rules">Guidelines</a>
+            <a href="#rules">Guideline</a>
             <a href="#register">Registration</a>
             <a href="#contact">Contact</a>
-            <span style="border: 2px solid transparent; border-radius: 5px; padding: 10px;">
-                <a href="PerkSelector.html">Perk Selector</a>
-            </span>
+            <a href="#socials">Socials</a>
+            
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Dive into a new experience of Dead by Daylight </h1>
+        <h1>Dive into a new experience of Dead by Daylight</h1>
         <p></p>
         <button class="cta-button" onclick="toggleForm()">Register Now</button>
         <a href="PerkSelector.html" class="cta-button">Go to Perk Selector</a>
@@ -329,8 +416,8 @@
     </div>
 
     <section id="rules" class="section">
-        <h2>Guidelines</h2>
-        <p>Make sure to read the rules and guidelines of the tournament before signing up. This will ensure a smooth experience for everyone involved! You can find the Rules in the "REGISTER NOW" section by clicking the button!</p>
+        <h2>Guideline</h2>
+        <p>Make sure to read the rules and guidelines of the tournament before signing up. This will ensure a smooth experience for everyone involved!</p>
     </section>
 
     <section id="register" class="section">
@@ -341,12 +428,44 @@
             <iframe title="Registration Form" src="https://docs.google.com/forms/d/e/1FAIpQLSdF67Vs69ig1jOnOnOa0HhF4RdMRZ7TEE0SchxJge3ohGf5_A/viewform?embedded=true">Loading…</iframe>
         </div>
     </section>
-
-    <section id="contact" class="section">
-        <h2>Contact</h2>
+    
+    <section id="socials" class="section">
+        <h2>Our Socials</h2>
         <p>For questions or further information, please reach out to us through our social media channels.</p>
+            <div class="social-icons">
+        <a href="https://www.instagram.com/edward.pdo/" target="_blank" title="Instagram">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram Logo">
+        </a>
+        <a href="https://www.twitch.tv/lo0m3" target="_blank" title="Twitch">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/twitch.png" alt="Twitch Logo">
+        </a>
+        <a href="https://www.youtube.com/channel/UCFX1oin8XXRo3WTgnDEbt5Q/channels?sub_confirmation=1" target="_blank" title="YouTube">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png" alt="YouTube Logo">
+        </a>
+        <a href="https://discord.gg/6sgjZBb" target="_blank" title="Discord">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/discord-logo.png" alt="Discord Logo">
+        </a>
+                
+    </div>
     </section>
 
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or need further information, please fill out the form below, and we'll get back to you as soon as possible.</p>
+        <form action="https://formspree.io/f/xjkvovaw" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="_replyto" placeholder="Your Email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    
     <footer>
         <p>&copy; 2024 Dead by Daylight Championship. All rights reserved.</p>
     </footer>
