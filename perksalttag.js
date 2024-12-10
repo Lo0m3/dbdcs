@@ -127,7 +127,7 @@ const killerPerks = [
     { number: 124, name: "Batteries included" },
     { number: 125, name: "All-Shaking Thunder" },
     { number: 126, name: "No Quarter" },
-    { number: 127, name: "Scourge Hook: Jagged Compass" },    
+    { number: 127, name: "Scourge Hook: Jagged Compass" }    
 ];
 
 const survivorPerks = [
@@ -279,7 +279,7 @@ const survivorPerks = [
     { number: 146, name: "Dark Sense" },
     { number: 147, name: "Clean Break" },
     { number: 148, name: "Invocation: Treacherous Crow" },
-    { number: 149, name: "Shoulder the Burden" },
+    { number: 149, name: "Shoulder the Burden" }
     
 ];
 
