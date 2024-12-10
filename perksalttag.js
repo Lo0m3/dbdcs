@@ -125,6 +125,9 @@ const killerPerks = [
     { number: 122, name: "Friends 'til the End" },
     { number: 123, name: "Hex: Two Can Play" },
     { number: 124, name: "Batteries included" },
+    { number: 125, name: "All-Shaking Thunder" },
+    { number: 126, name: "No Quarter" },
+    { number: 127, name: "Scourge Hook: Jagged Compass" },    
 ];
 
 const survivorPerks = [
@@ -273,7 +276,11 @@ const survivorPerks = [
     { number: 143, name: "Eyes of Belmont" },
     { number: 144, name: "Exultation" },
     { number: 145, name: "Moment of Glory" },
-    { number: 146, name: "Dark Sense" }
+    { number: 146, name: "Dark Sense" },
+    { number: 147, name: "Clean Break" },
+    { number: 148, name: "Invocation: Treacherous Crow" },
+    { number: 149, name: "Shoulder the Burden" },
+    
 ];
 
 function updateAltAttributes() {
