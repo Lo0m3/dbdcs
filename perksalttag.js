@@ -127,7 +127,10 @@ const killerPerks = [
     { number: 124, name: "Batteries included" },
     { number: 125, name: "All-Shaking Thunder" },
     { number: 126, name: "No Quarter" },
-    { number: 127, name: "Scourge Hook: Jagged Compass" }    
+    { number: 127, name: "Scourge Hook: Jagged Compass" },
+    { number: 128, name: "None Are Free" },
+    { number: 129, name: "Hex: Nothing But Misery" },
+    { number: 130, name: "Forever Entwined" }    
 ];
 
 const survivorPerks = [
