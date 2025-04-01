@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DbD Competitive Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #f0f0f0;
+            background: #0b0c0b url('DbDCSWRBackground.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            color: #f71515;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            color: #ffffff;
+        }
+
+        .record-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .category {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .category:hover {
+            background-color: rgba(159, 20, 20, 0.9);
+        }
+
+        /* Anpassung für den Informationskreis */
+        .info-icon {
+            cursor: pointer;
+            margin-left: 10px;
+            color: #f71515;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; /* Kreisform */
+            background-color: #ffffff;
+            text-align: center;
+            line-height: 25px; /* Zentrierung des Textes */
+        }
+
+        .info-icon:hover {
+            background-color: #ff3e3e; /* Dunklerer Hintergrund bei Hover */
+        }
+
+        .subcategories {
+            display: none;
+            padding-top: 10px;
+        }
+
+        .subcategory {
+            background-color: rgba(50, 50, 50, 0.9);
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .subcategory:hover {
+            background-color: rgba(159, 20, 20, 0.8);
+        }
+
+        .active {
+            display: block;
+        }
+
+        .record-list {
+            display: none;
+            margin: 20px auto;
+            width: 50%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .rules-popup {
+            display: none;
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            width: 300px;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 100;
+        }
+        
+        .subrules {
+            padding-left: 20px;
+        }
+        #recordList {
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        #recordEntries {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recordItem {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+
+        .recordItem span {
+            display: inline-block;
+            width: 45%;
+        }
+
+        .recordItem .streak {
+            text-align: right;
+        }
+
+    </style>
+</head>
+    
+<body>
+    <header>
+        <a href="landingdbdcs1.html" class="logo">Dead by Daylight Championship</a>
+    </header>
+
+    <section class="hero">
+        <h1>Every Record & Achievement in one place</h1>
+    </section>
+
+    <section class="record-categories">
+        <div class="category" onclick="toggleSubcategories('escape')">
+            Escape Streaks <span class="info-icon" onclick="showRules(event, 'escape')">i</span>
+            <div id="escape" class="subcategories">
+                <div class="subcategory" onclick="showRecordList('SoloQ')">SoloQ Escape Streak</div>
+                <div class="subcategory" onclick="showRecordList('Duo')">Duo Escape Streak</div>
+                <div class="subcategory" onclick="showRecordList('Trio')">Trio Escape Streak</div>
+                <div class="subcategory" onclick="showRecordList('Fourman')">4-Man Escape Streak</div>
+            </div>
+        </div>
+        <div class="category" onclick="toggleSubcategories('speedrun')">
+            Speedrun <span class="info-icon" onclick="showRules(event, 'speedrun')">i</span>
+            <div id="speedrun" class="subcategories"> <!-- ID auf 'speedrun' geändert -->
+                <div class="subcategory" onclick="showRecordList('Fastest Escapes')">Escape Speedrun</div>
+                <div class="subcategory" onclick="showRecordList('Fastest 4K')">4 Kill Speedrun</div>
+            </div>
+        </div>
+        
+        <div class="category" onclick="toggleSubcategories('killstreak')">
+            Killstreak <span class="info-icon" onclick="showRules(event, 'killstreak')">i</span>
+            <div id="killstreak" class="subcategories">
+                <div class="subcategory" onclick="showRecordList('selectKiller')">
+                    Select Killer for Record
+                    <select id="killerSelect" onchange="showRecordList(this.value)">
+                        <option value="">--Select a Killer--</option>
+                            <option value="Trapper">The Trapper</option>
+                                <option value="Wraith">The Wraith</option>
+                                <option value="Hillbilly">The Hillbilly</option>
+                                <option value="Nurse">The Nurse</option>
+                                <option value="Shape">The Shape</option>
+                                <option value="Hag">The Hag</option>
+                                <option value="Doctor">The Doctor</option>
+                                <option value="Huntress">The Huntress</option>
+                                <option value="Cannibal">The Cannibal</option>
+                                <option value="Nightmare">The Nightmare</option>
+                                <option value="Pig">The Pig</option>
+                                <option value="Clown">The Clown</option>
+                                <option value="Spirit">The Spirit</option>
+                                <option value="Legion">The Legion</option>
+                                <option value="Plague">The Plague</option>
+                                <option value="GhostFace">The Ghost Face</option>
+                                <option value="Demogorgon">The Demogorgon</option>
+                                <option value="Oni">The Oni</option>
+                                <option value="Deathslinger">The Deathslinger</option>
+                                <option value="Executioner">The Executioner</option>
+                                <option value="Blight">The Blight</option>
+                                <option value="Twins">The Twins</option>
+                                <option value="Trickster">The Trickster</option>
+                                <option value="Nemesis">The Nemesis</option>
+                                <option value="Cenobite">The Cenobite</option>
+                                <option value="Artist">The Artist</option>
+                                <option value="Onryō">The Onryō</option>
+                                <option value="Dredge">The Dredge</option>
+                                <option value="Mastermind">The Mastermind</option>
+                                <option value="Knight">The Knight</option>
+                                <option value="SkullMerchant">The Skull Merchant</option>
+                                <option value="Singularity">The Singularity</option>
+                                <option value="Xenomorph">The Xenomorph</option>
+                                <option value="GoodGuy">The Good Guy</option>
+                                <option value="Unknown">The Unknown</option>
+                                <option value="Lich">The Lich</option>
+                                <option value="DarkLord">The Dark Lord</option>
+                                <option value="Houndmaster">The Houndmaster</option>
+                                <option value="Ghoul">The Ghoul</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div id="recordList" class="record-list">
+        <h2>Top 10 Escape Streaks</h2>
+        <ol>
+            <li>1st - 15 Streak</li>
+            <li>2nd - 12 Streak</li>
+            <li>2nd - 12 Streak</li>
+            <li>2nd - 12 Streak</li>
+            <li>2nd - 12 Streak</li>
+            <li>2nd - 12 Streak</li>
+            <li>2nd - 12 Streak</li>
+            <li>2nd - 12 Streak</li>
+        </ol>
+    </div>
+
+    <div id="rulesPopup" class="rules-popup">
+        <h3>The Streaks have been achieved under the following rules:</h3>
+        <ul>
+            <li>1. For each consecutive escape, the streak goes up by one</li>
+            <li>2. Dying by any means ends the streak</li>
+            <li>3. Games will not count/ neither end in a streak loss nor in an additional escape if:
+                <ul class="subrules">
+                    <li>3.1 Hacking/ Cheating</li>
+                    <li>3.2 Lagswitch/ VPN Abuse/ Too high Ping</li>
+                    <li>3.3 Intentional griefing within the first minute of the game (DCing etc.)</li>
+                    <li>3.4 Obvious game manipulation (e.g. Streamsniping)</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        const killerRecords = {
+            "Nightmare": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Trapper": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Wraith": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Hillbilly": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Nurse": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Shape": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Hag": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Doctor": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Huntress": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Cannibal": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Pig": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Clown": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Spirit": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Legion": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Plague": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Ghost Face": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Demogorgon": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Oni": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Deathslinger": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Executioner": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Blight": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Twins": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Trickster": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Nemesis": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Cenobite": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Artist": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Onryō": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Dredge": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Mastermind": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Knight": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Skull Merchant": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Singularity": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Xenomorph": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Good Guy": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Unknown": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Lich": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Dark Lord": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Houndmaster": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ],
+            "Ghoul": [
+                { player: "Somebody gon get her", record: "112" },
+                { player: "2nd", record: "Record2" },
+                { player: "3rd", record: "x" },
+                { player: "4th", record: "x1" },
+                { player: "5th", record: "x11" },
+                { player: "6th", record: "x111" },
+                { player: "7th", record: "x1111" },
+                { player: "8th", record: "Record2" },
+                { player: "9th", record: "Record2" },
+                { player: "10th", record: "Record2" }
+            ]
+        };
+
+function toggleSubcategories(id) {
+    var element = document.getElementById(id);
+    if (element) {
+        element.classList.toggle('active');
+    }
+}
+
+function showRecordList(killerName) {
+    var list = document.getElementById("recordList");
+
+    // Wenn der Wert "selectKiller" ist, soll die Liste der Bestenliste nicht angezeigt werden.
+    if (!list || killerName === "selectKiller" || killerName === "") {
+        if (list) list.style.display = "none";
+        return;
+    }
+
+    list.style.display = "block";
+
+    // Dynamische Anpassung der Liste basierend auf dem ausgewählten Killer
+    var records = killerRecords[killerName] || [];
+    var recordListHTML = `<h2>Top 10  for ${killerName}</h2><ol>`;
+
+    // Top 10 records für den ausgewählten Killer anzeigen
+    for (var i = 0; i < records.length && i < 10; i++) {
+        recordListHTML += `<li>${records[i].player} - ${records[i].record}</li>`;
+    }
+
+    recordListHTML += `</ol>`;
+    list.innerHTML = recordListHTML;
+}
+
+function showConfirmationList(killerName) {
+    var confirmList = document.getElementById("confirmList");
+
+    // Wenn der Wert "selectKiller" ist, soll die Bestätigungsliste nicht angezeigt werden.
+    if (!confirmList || killerName === "selectKiller" || killerName === "") {
+        if (confirmList) confirmList.style.display = "none";
+        return;
+    }
+
+    confirmList.style.display = "block";
+
+    // Dynamische Anpassung der Bestätigungsliste basierend auf dem ausgewählten Killer
+    var records = killerRecords[killerName] || [];
+    var confirmListHTML = `<h2>Confirmation Records for ${killerName}</h2><ol>`;
+
+    // Zeigt die neuesten 10 Rekorde für den ausgewählten Killer an
+    for (var i = 0; i < records.length && i < 10; i++) {
+        confirmListHTML += `<li>${records[i].player} - ${records[i].record}</li>`;
+    }
+
+    confirmListHTML += `</ol>`;
+    confirmList.innerHTML = confirmListHTML;
+}
+
+function showRecordListByCategory(category) {
+    const recordList = document.getElementById("recordList");
+
+    if (!recordList) return;
+
+    // Verstecke die Rekordliste immer zuerst
+    recordList.style.display = "none";
+
+    if (category && category !== "selectCategory") {
+        recordList.style.display = "block";
+
+        // Finde das <h2>-Element in der Liste
+        const titleElement = recordList.querySelector("h2");
+        if (!titleElement) return;
+
+        // Bestimme den Titel basierend auf der Kategorie
+        const titles = {
+            "SoloQ": "Top 10 SoloQ Escape Streaks",
+            "Duo": "Top 10 Duo Escape Streaks",
+            "Trio": "Top 10 Trio Escape Streaks",
+            "Fourman": "Top 10 4-Man Escape Streaks",
+            "Fastest Escape": "Fastest Escape Speedrun",
+            "Fastest 4K": "Fastest 4 Kill Speedrun"
+        };
+
+        titleElement.innerText = titles[category] || `Top 10 Killstreaks - ${category}`;
+    }
+}
+
+// Prevent click events from propagating when selecting the killer
+document.getElementById("killerSelect")?.addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
+const escapeRecords = {
+    "SoloQ": [
+        { player: "Player1", record: "15 Streak" }, 
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+        { player: "Player2", record: "12 Streak" },
+    ],
+    "Duo": [
+        { player: "Player3", record: "10 Streak" }, 
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        { player: "Player4", record: "9 Streak" },
+        ],
+    "Trio": [
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+        { player: "Player5", record: "8 Streak" },
+    ],
+    "Fourman": [
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+        { player: "Player6", record: "7 Streak" },
+    ]
+};
+
+const speedrunRecords = {
+    "Fastest Escapes": [
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+        { player: "PlayerX", record: "3m 45s" },
+    ],
+    "Fastest 4K": [
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+        { player: "PlayerY", record: "4m 10s" },
+    ]
+};
+
+function showRecordList(category) {
+    var list = document.getElementById("recordList");
+
+    if (!list || category === "selectKiller" || category === "") {
+        if (list) list.style.display = "none";
+        return;
+    }
+
+    let records = killerRecords[category] || escapeRecords[category] || speedrunRecords[category] || [];
+
+    let title = {
+        "SoloQ": "Top 10 SoloQ Escape Streaks",
+        "Duo": "Top 10 Duo Escape Streaks",
+        "Trio": "Top 10 Trio Escape Streaks",
+        "Fourman": "Top 10 4-Man Escape Streaks",
+        "Fastest Escapes": "Fastest Escape Speedrun",
+        "Fastest 4K": "Fastest 4 Kill Speedrun"
+    }[category] || `Top 10 for ${category}`;
+
+    let recordListHTML = `<h2>${title}</h2><ol>`;
+
+    for (var i = 0; i < records.length && i < 10; i++) {
+        recordListHTML += `<li>${records[i].player} - ${records[i].record}</li>`;
+    }
+
+    recordListHTML += `</ol>`;
+    list.innerHTML = recordListHTML;
+    list.style.display = "block";
+}
+
+const ruleButtons = document.querySelectorAll('.rule-button'); // Alle Regel-Buttons
+const popup = document.querySelector('#rulesPopup'); // Das Pop-up-Element
+const popupContent = popup.querySelector('.popup-content'); // Der Inhaltsbereich des Pop-ups
+
+ruleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const ruleText = button.getAttribute('data-rule'); // Regeltext aus dem data-Attribut holen
+        popupContent.innerHTML = ruleText; // Den Inhalt des Pop-ups ersetzen
+
+        // Stelle sicher, dass jedes i erneut anklickbar ist
+        const infoIcons = popupContent.querySelectorAll('i'); 
+        infoIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                // Füge hier den Code hinzu, um die entsprechende Info anzuzeigen
+                const infoText = icon.getAttribute('data-info'); 
+                alert(infoText); // Beispiel: Information anzeigen
+            });
+        });
+
+        popup.style.display = 'block'; // Pop-up anzeigen
+    });
+});
+
+// Zum Schließen des Pop-ups
+const closeButton = popup.querySelector('.close'); 
+closeButton.addEventListener('click', () => {
+    popup.style.display = 'none'; // Pop-up schließen
+});
+function showRules(event, category) {
+    event.stopPropagation(); // Verhindert das Schließen bei Klick auf das Info-Icon
+    
+    var popup = document.getElementById('rulesPopup');
+    var rulesContent = ''; // Inhalt für die Popup-Box
+
+    // Je nach Kategorie, die Regeln festlegen
+    if (category === 'escape') {
+        rulesContent = `
+            <h3>The Streaks have been achieved under the following rules:</h3>
+            <ul>
+                <li>1. For each consecutive escape, the streak goes up by one</li>
+                <li>2. Dying by any means ends the streak</li>
+                <li>3. Games will not count/ neither end in a streak loss nor in an additional escape if:
+                    <ul class="subrules">
+                        <li>3.1 Hacking/ Cheating</li>
+                        <li>3.2 Lagswitch/ VPN Abuse/ Too high Ping</li>
+                        <li>3.3 Intentional griefing within the first minute of the game (DCing etc.)</li>
+                        <li>3.4 Obvious game manipulation (e.g. Streamsniping)</li>
+                    </ul>
+                </li>
+            </ul>`;
+    } 
+    
+    else if (category === 'speedrun') {
+        rulesContent = `
+            <h3>The Speedrun Records have been achieved under the following rules:</h3>
+            <ul>
+                <li>1. Speedrun time starts when the game begins.</li>
+                <li>2. The timer stops once the Escape is achieved or 4 kills are made.</li>
+                <li>3. Any form of external interference (e.g., network issues) will result in disqualification.</li>
+            </ul>`;
+    }
+    }
+    if (category === 'escape') {
+
+
+    // Setze den Inhalt des Popups
+    popup.innerHTML = rulesContent;
+
+    // Zeige das Popup an
+    popup.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
