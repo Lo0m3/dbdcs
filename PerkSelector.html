@@ -510,7 +510,9 @@
                         <div class="perkAndNameEqu" id="containerEquPerk125"><img class="equipmentPerks" id="iconEquPerk125" src="IconPerks_allShakingThunder.png"></div>
                         <div class="perkAndNameEqu" id="containerEquPerk126"><img class="equipmentPerks" id="iconEquPerk126" src="IconPerks_noQuarter.png"></div>
                         <div class="perkAndNameEqu" id="containerEquPerk127"><img class="equipmentPerks" id="iconEquPerk127" src="IconPerks_scourgeHookJaggedCompass.png"></div>
-                        
+		        <div class="perkAndNameEqu" id="containerEquPerk128"><img class="equipmentPerks" id="iconEquPerk128" src="IconPerks_NoneAreFree.png"></div>
+                        <div class="perkAndNameEqu" id="containerEquPerk129"><img class="equipmentPerks" id="iconEquPerk129" src="IconPerks_HexNothingButMisery.png"></div>
+                        <div class="perkAndNameEqu" id="containerEquPerk130"><img class="equipmentPerks" id="iconEquPerk130" src="IconPerks_ForeverEntwined.png"></div>                        
 
                          
                         <!--                                                                                    -->
@@ -718,6 +720,7 @@
                         <div class="characterAndNameEqu" id="containerEquKiller36"><img class="equipmentRole" id="iconEquKiller36" src="NemesisPortraitKiller.png"></div>
                         <div class="characterAndNameEqu" id="containerEquKiller37"><img class="equipmentRole" id="iconEquKiller37" src="PheadPortraitKiller.png"></div>
                         <div class="characterAndNameEqu" id="containerEquKiller38"><img class="equipmentRole" id="iconEquKiller38" src="HoundmasterPortraitKiller.png"></div>
+                        <div class="characterAndNameEqu" id="containerEquKiller39"><img class="equipmentRole" id="iconEquKiller39" src="GhoulPortraitKiller.png"></div>
 
 
                 
@@ -856,6 +859,9 @@
                             <div class="perkAndNameUnequ killer" id="containerUnequPerk116"><img class="selectionPerks" id="iconUnequPerk116" src="IconPerks_grimEmbrace.png" data-type="killer" alt="116"></div>
                             <div class="perkAndNameUnequ killer" id="containerUnequPerk122"><img class="selectionPerks" id="iconUnequPerk122" src="IconPerks_friendsTilTheEnd.png" data-type="killer" alt="122"></div>
                             <div class="perkAndNameUnequ killer" id="containerUnequPerk124"><img class="selectionPerks" id="iconUnequPerk124" src="IconPerks_batteriesIncluded.png" data-type="killer" alt="124"></div>
+                            <div class="perkAndNameUnequ killer" id="containerUnequPerk128"><img class="selectionPerks" id="iconUnequPerk128" src="IconPerks_NoneAreFree.png" data-type="killer" alt="128"></div>
+                            <div class="perkAndNameUnequ killer" id="containerUnequPerk129"><img class="selectionPerks" id="iconUnequPerk129" src="IconPerks_HexNothingButMisery.png" data-type="killer" alt="129"></div>
+                            <div class="perkAndNameUnequ killer" id="containerUnequPerk130"><img class="selectionPerks" id="iconUnequPerk130" src="IconPerks_ForeverEntwined.png" data-type="killer" alt="130"></div>
 
                         </td>
                     </tr>
@@ -1046,6 +1052,7 @@
                             <div class="characterAndNameUnequ" id="containerUnequKiller8"><img class="selectionKiller" id="iconUnequKiller8" src="BillyPortraitKiller.png" alt=""></div>
                             <div class="characterAndNameUnequ" id="containerUnequKiller30"><img class="selectionKiller" id="iconUnequKiller30" src="WeskerPortraitKiller.png" alt=""></div>
                             <div class="characterAndNameUnequ" id="containerUnequKiller36"><img class="selectionKiller" id="iconUnequKiller36" src="NemesisPortraitKiller.png" alt=""></div>
+                            <div class="characterAndNameUnequ" id="containerUnequKiller39"><img class="selectionKiller" id="iconUnequKiller39" src="GhoulPortraitKiller.png" alt=""></div>
 
                         </td>
                     </tr>
@@ -1816,6 +1823,9 @@ $('#buttonBestatigen').on('click', function () {
             document.getElementById("containerEquPerk125").onclick = function() {deleteEquippedPerks("containerUnequPerk125", "containerEquPerk125")}; 
             document.getElementById("containerEquPerk126").onclick = function() {deleteEquippedPerks("containerUnequPerk126", "containerEquPerk126")}; 
             document.getElementById("containerEquPerk127").onclick = function() {deleteEquippedPerks("containerUnequPerk127", "containerEquPerk127")}; 
+            document.getElementById("containerEquPerk128").onclick = function() {deleteEquippedPerks("containerUnequPerk128", "containerEquPerk128")}; 
+            document.getElementById("containerEquPerk129").onclick = function() {deleteEquippedPerks("containerUnequPerk129", "containerEquPerk129")}; 
+            document.getElementById("containerEquPerk130").onclick = function() {deleteEquippedPerks("containerUnequPerk130", "containerEquPerk1230")}; 
 
 
             
@@ -2065,6 +2075,7 @@ $('#buttonBestatigen').on('click', function () {
             document.getElementById("containerEquKiller36").onclick = function() { deleteEquippedCharacter("containerEquKiller36", "containerUnequKiller36") };
             document.getElementById("containerEquKiller37").onclick = function() { deleteEquippedCharacter("containerEquKiller37", "containerUnequKiller37") };
             document.getElementById("containerEquKiller38").onclick = function() { deleteEquippedCharacter("containerEquKiller38", "containerUnequKiller38") };
+            document.getElementById("containerEquKiller39").onclick = function() { deleteEquippedCharacter("containerEquKiller39", "containerUnequKiller39") };
 
 
 
@@ -2265,6 +2276,9 @@ $('#buttonBestatigen').on('click', function () {
             document.getElementById("containerUnequPerk125").onclick = function() {showPerk("containerUnequPerk125", "containerEquPerk125", "All-Shaking Thunder", "After falling from a height, All-Shaking Thunder activates for 16 seconds: Increases the range of your Lunge Attack by +75 %. All-Shaking Thunder has a cool-down of 5 seconds.")}; 
             document.getElementById("containerUnequPerk126").onclick = function() {showPerk("containerUnequPerk126", "containerEquPerk126", "No Quarter", "Whenever a Survivor healing themselves by any means reaches 75 % Healing Progress, No Quarter triggers its effect: The Survivor is faced with a continuous stream of Skill Checks until the Self-Heal is completed. If they fail a Skill Check or interrupt the action by any means, they suffer from the Broken Status Effect for 30 seconds.")}; 
             document.getElementById("containerUnequPerk127").onclick = function() {showPerk("containerUnequPerk127", "containerEquPerk127", "Scourge Hook: Jagged Compass", "At the start of the Trial, 4 random Hooks are changed into Scourge Hooks: The Auras of Scourge Hooks are revealed to you in white. Whenever a Survivor is unhooked from a normal Hook, the following effect applies: The Hook is converted into a Scourge Hook. Whenever you hook a Survivor onto a Scourge Hook, the following effect applies: The Aura of the Generator with the most progression is highlighted in yellow for 10 seconds.")}; 
+            document.getElementById("containerUnequPerk128").onclick = function() {showPerk("containerUnequPerk128", "containerEquPerk128", "None Are Free", "At the start of the Trial, 4 random Hooks are changed into Scourge Hooks: The Auras of Scourge Hooks are revealed to you in white. Whenever a Survivor is unhooked from a normal Hook, the following effect applies: The Hook is converted into a Scourge Hook. Whenever you hook a Survivor onto a Scourge Hook, the following effect applies: The Aura of the Generator with the most progression is highlighted in yellow for 10 seconds.")}; 
+            document.getElementById("containerUnequPerk129").onclick = function() {showPerk("containerUnequPerk129", "containerEquPerk129", "Hex: Nothing But Misery", "At the start of the Trial, 4 random Hooks are changed into Scourge Hooks: The Auras of Scourge Hooks are revealed to you in white. Whenever a Survivor is unhooked from a normal Hook, the following effect applies: The Hook is converted into a Scourge Hook. Whenever you hook a Survivor onto a Scourge Hook, the following effect applies: The Aura of the Generator with the most progression is highlighted in yellow for 10 seconds.")}; 
+            document.getElementById("containerUnequPerk130").onclick = function() {showPerk("containerUnequPerk130", "containerEquPerk130", "Forever Entwined", "At the start of the Trial, 4 random Hooks are changed into Scourge Hooks: The Auras of Scourge Hooks are revealed to you in white. Whenever a Survivor is unhooked from a normal Hook, the following effect applies: The Hook is converted into a Scourge Hook. Whenever you hook a Survivor onto a Scourge Hook, the following effect applies: The Aura of the Generator with the most progression is highlighted in yellow for 10 seconds.")}; 
 
 
 
@@ -2546,6 +2560,7 @@ $('#buttonBestatigen').on('click', function () {
             document.getElementById("containerUnequKiller36").onclick = function() { showCharakter("containerUnequKiller36", "containerEquKiller36", "The Nemesis", "I CANT BE THE ONLY ONE...HE SOUNDS LIKE MASHING MULTIPLE KEYS WHILE PLAYING THE ORGAN"); };
             document.getElementById("containerUnequKiller37").onclick = function() { showCharakter("containerUnequKiller37", "containerEquKiller37", "The Cenobite", "He came ¯\_(ツ)_/¯"); };
             document.getElementById("containerUnequKiller38").onclick = function() { showCharakter("containerUnequKiller38", "containerEquKiller38", "The Houndmaster", "Slowly turning this game into Dogs by Daylight."); };
+            document.getElementById("containerUnequKiller39").onclick = function() { showCharakter("containerUnequKiller39", "containerEquKiller39", "The Ghoul", "Great, they added another Tentacock... but still no Shirtless Myers"); };
 
 
 
