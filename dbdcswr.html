@@ -990,7 +990,7 @@ ruleButtons.forEach(button => {
             icon.addEventListener('click', () => {
                 // Füge hier den Code hinzu, um die entsprechende Info anzuzeigen
                 const infoText = icon.getAttribute('data-info'); 
-                alert(infoText); // Beispiel: Information anzeigen
+                alert(infoText); // Bspw.: Information anzeigen
             });
         });
 
@@ -1038,7 +1038,7 @@ function showRules(event, category) {
     // Überprüfen, ob das Popup bereits angezeigt wird
     if (popup.style.display === 'block') {
         popup.style.display = 'none';
-        popup.style.zIndex = 100; // Setze den z-index zurück
+        popup.style.zIndex = 100; // Setzt den z-index zurück
     } else {
         popup.innerHTML = rulesContent;
         popup.style.display = 'block';
@@ -1111,12 +1111,13 @@ function showRules(event, category) {
     popup.innerHTML = rulesContent;
     popup.style.display = 'block';
     popup.style.zIndex = 101;
-    currentPopupCategory = category; // Setzt aktuelle Kategorien zurück
+    currentPopupCategory = category; // Setzt atkuelle Kat. zurück
+}
 
 function closePopup() {
     document.getElementById('rulesPopup').style.display = 'none';
     document.getElementById('rulesPopup').style.zIndex = 100;
-    currentPopupCategory = null; // Auch hier: setzt aktuelle KAtegorie zruück 
+    currentPopupCategory = null; // Áuch hier: Setzt aktuelle Kategorie zruück
 }   
 </script>
 
