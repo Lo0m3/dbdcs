@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             alert("Site is still in progress. Some features might be missing or not working as intended. You may proceed now!");
         });
     </script>
-    
     <title>DbD Competitive Records</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -172,12 +170,33 @@
             text-align: right;
         }
 
+        @media (max-width: 768px) {
+            .rules-popup {
+                width: 90%; /* Breite an den Bildschirm anpassen */
+                top: 10%; /* Position anpassen */
+                left: 5%; /* Zentrieren */
+                right: auto; /* Rechte Positionierung entfernen */
+            }
+
+            .rules-popup h3 {
+                font-size: 1.2em; /* Schriftgröße anpassen */
+            }
+
+            .rules-popup ul, .rules-popup li {
+                font-size: 1em; /* Schriftgröße anpassen */
+            }
+
+            .rules-popup button {
+                font-size: 1em; /* Schriftgröße anpassen */
+                padding: 10px 15px; /* Padding anpassen */
+            }
+        }
     </style>
 </head>
     
 <body>
     <header>
-        <a href="landing.html" class="logo">Dead by Daylight Championship</a>
+        <a href="landingdbdcs1.html" class="logo">Dead by Daylight Championship</a>
     </header>
 
     <section class="hero">
@@ -224,7 +243,7 @@
                                 <option value="Spirit">The Spirit</option>
                                 <option value="Legion">The Legion</option>
                                 <option value="Plague">The Plague</option>
-                                <option value="GhostFace">The Ghost Face</option>
+                                <option value="Ghost Face">The Ghost Face</option>
                                 <option value="Demogorgon">The Demogorgon</option>
                                 <option value="Oni">The Oni</option>
                                 <option value="Deathslinger">The Deathslinger</option>
@@ -239,13 +258,13 @@
                                 <option value="Dredge">The Dredge</option>
                                 <option value="Mastermind">The Mastermind</option>
                                 <option value="Knight">The Knight</option>
-                                <option value="SkullMerchant">The Skull Merchant</option>
+                                <option value="Skull Merchant">The Skull Merchant</option>
                                 <option value="Singularity">The Singularity</option>
                                 <option value="Xenomorph">The Xenomorph</option>
-                                <option value="GoodGuy">The Good Guy</option>
+                                <option value="Good Guy">The Good Guy</option>
                                 <option value="Unknown">The Unknown</option>
                                 <option value="Lich">The Lich</option>
-                                <option value="DarkLord">The Dark Lord</option>
+                                <option value="Dark Lord">The Dark Lord</option>
                                 <option value="Houndmaster">The Houndmaster</option>
                                 <option value="Ghoul">The Ghoul</option>
                     </select>
@@ -979,18 +998,12 @@ ruleButtons.forEach(button => {
     });
 });
 
-// Zum Schließen des Pop-ups
-const closeButton = popup.querySelector('.close'); 
-closeButton.addEventListener('click', () => {
-    popup.style.display = 'none'; // Pop-up schließen
-});
 function showRules(event, category) {
-    event.stopPropagation(); // Verhindert das Schließen bei Klick auf das Info-Icon
-    
-    var popup = document.getElementById('rulesPopup');
-    var rulesContent = ''; // Inhalt für die Popup-Box
+    event.stopPropagation();
 
-    // Je nach Kategorie, die Regeln festlegen
+    var popup = document.getElementById('rulesPopup');
+    var rulesContent = '';
+
     if (category === 'escape') {
         rulesContent = `
             <h3>The Streaks have been achieved under the following rules:</h3>
@@ -1001,31 +1014,41 @@ function showRules(event, category) {
                     <ul class="subrules">
                         <li>3.1 Hacking/ Cheating</li>
                         <li>3.2 Lagswitch/ VPN Abuse/ Too high Ping</li>
-                        <li>3.3 Intentional griefing within the first minute of the game (DCing etc.)</li>
+                        <li>3.3 Intentional griefing within the first Minute of the game (DCing etc.)</li>
                         <li>3.4 Obvious game manipulation (e.g. Streamsniping)</li>
                     </ul>
                 </li>
-            </ul>`;
-    } 
-    
-    else if (category === 'speedrun') {
+            </ul>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button onclick="closePopup()">Close</button>
+            </div>`;
+    } else if (category === 'speedrun') {
         rulesContent = `
             <h3>The Speedrun Records have been achieved under the following rules:</h3>
             <ul>
                 <li>1. Speedrun time starts when the game begins.</li>
                 <li>2. The timer stops once the Escape is achieved or 4 kills are made.</li>
                 <li>3. Any form of external interference (e.g., network issues) will result in disqualification.</li>
-            </ul>`;
+            </ul>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button onclick="closePopup()">Close</button>
+            </div>`;
     }
+
+    // Überprüfen, ob das Popup bereits angezeigt wird
+    if (popup.style.display === 'block') {
+        popup.style.display = 'none';
+        popup.style.zIndex = 100; // Setze den z-index zurück
+    } else {
+        popup.innerHTML = rulesContent;
+        popup.style.display = 'block';
+        popup.style.zIndex = 101;
     }
-    if (category === 'escape') {
+}
 
-
-    // Setze den Inhalt des Popups
-    popup.innerHTML = rulesContent;
-
-    // Zeige das Popup an
-    popup.style.display = 'block';
+function closePopup() {
+    document.getElementById('rulesPopup').style.display = 'none';
+    document.getElementById('rulesPopup').style.zIndex = 100;
 }
 </script>
 
