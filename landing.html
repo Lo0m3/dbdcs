@@ -65,7 +65,7 @@
             padding: 0 20px;
             background: url('FogAwaitsWebsite.png') no-repeat center center;
             background-size: cover;
-            background-attachment: fixed; /* Keep background fixed */
+            background-attachment: fixed; /* Behält Backg fixiert */
             box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
             z-index: 1;
             margin-top: 60px;
@@ -96,7 +96,7 @@
         }
 
         .cta-button:hover {
-            background-color: #9f1414;
+            background-color: #ff2525;
         }
 
         /* Sektionen */
@@ -119,36 +119,36 @@
 
         .carousel-container {
             display: flex;
-            justify-content: center; /* Center the carousel */
+            justify-content: center; /* Zentriert das carousel */
             align-items: center;
-            width: 50%; /* Use full width on smaller screens */
-            max-width: 1200px; /* Maintain a max width for larger screens */
-            margin: 0 auto; /* Center the carousel in the page */
+            width: 60%; /* Nutzt die full width auf kleineren Screens */
+            max-width: 1200px; /* Maintained eine max width für größere Screens */
+            margin: 0 auto; /* Zentriert das carousel auf der Page */
         }
         
         .carousel-slide {
-            flex: -1; /* Take equal space */
+            flex: -1; /* Nimmt equal space */
             transition: transform 0.5s ease;
-            margin: 0; /* No spacing between images */
-            opacity: 0.6; /* Dim non-active images */
-            text-align: center; /* Center text within the slide */
-            cursor: pointer; /* Change cursor to indicate clickable */
+            margin: 0; /* Für kein spacing zwischen den images */
+            opacity: 0.6; /* Dimmen der non-active PNGs */
+            text-align: center; /* Zentrierter Text innerhalb der Slide */
+            cursor: pointer; /* Ändert Cursor zum "indicate clickable" */
         }
         
         .active-slide {
-            opacity: 1; /* Highlight active slide */
-            transform: scale(1.05); /* Slightly enlarge active slide */
+            opacity: 1; /* Highlight vom active Slide */
+            transform: scale(1.05); /* Leichtes Vergößern vom active Slide */
         }
         
         .carousel-slide img {
-            width: 75%; /* Full width for images */
+            width: 75%; /* Full width für die PNGs */
             border-radius: 20px;
-            transition: transform 0.5s ease; /* Smooth scaling effect */
+            transition: transform 0.5s ease; /* Für den Smooth scaling effect */
         }
         
         /* Add scaling effect for images in active slide */
         .carousel-slide.active-slide img {
-            transform: scale(1.5); /* Increase the size of the active slide image */
+            transform: scale(1.5); /* Vergößert das active slide PNG */
         }
 
 
@@ -194,18 +194,28 @@
             padding: 10px;
         }
 
+
+
         nav a {
-            padding: 10px 5px;
+            padding: 10px 10px;
             font-size: 1em;
         }
+       nav a:last-of-type {
+            min-width: 180px;
+        }
+
 
         .carousel-container {
-            flex-direction: column; /* Stack images on small screens */
+            flex-direction: column; /* Stackt die PNGs auf kleinen Screens */
         }
 
         .carousel-slide {
-            width: 80%; /* Adjust width on small screens */
+            width: 80%; /* Passt die width auf kleinen Screens an */
         }
+        .active-slide {
+        transform: scale(1.0); /* Reduziere die Skalierung leicht */
+        z-index: 1; /* Füge z-index hinzu - wichtig, da das untere PNG transparent sichtbar ist - alternativ nicht komplett */
+    }
         }
 
         /* Google Form Styling */
@@ -251,7 +261,7 @@
         }
 
         .social-icons img {
-            width: 50px; /* Adjust size of the icons */
+            width: 50px; /* Anpassung der Icongröße wow */
             height: 50px;
         }
 
@@ -274,13 +284,13 @@
 
         form input,
         form textarea {
-            width: 100%; /* Ensure input fields span full width */
+            width: 100%; /* Stellt das input fields span full width sicher*/
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1em;
-            box-sizing: border-box; /* Include padding in width calculation */
+            box-sizing: border-box; /* Beinhaltet padding in width calculation */
         }
 
         form button {
@@ -317,6 +327,35 @@
             }
         }
 
+        .floating-socials {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .floating-socials a {
+            background-color: #7b0000;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .floating-socials a:hover {
+            transform: scale(1.15);
+            background-color: #ff2323;
+        }
+
+        .floating-socials img {
+            width: 20px;
+            height: 20px;
+        }
 
     </style>
     <script>
@@ -348,13 +387,13 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         showSlides();
-        setInterval(showSlides, 3000); // Change image every 3 seconds
+        setInterval(showSlides, 3000); // Alle 3 sec Bilderswitch
 
-        // Add click event listener to each slide for manual switching
+        // Click Event Listener für den manual switching
         const slides = document.querySelectorAll('.carousel-slide');
         slides.forEach((slide, index) => {
             slide.addEventListener('click', () => {
-                setSlide(index); // Switch to clicked slide
+                setSlide(index); // Swiched auf geklickte Slides
             });
         });
     });
@@ -384,7 +423,6 @@
             <a href="#about">About Us</a>
             <a href="#rules">Guideline</a>
             <a href="#register">Registration</a>
-            <a href="#socials">Socials</a>
             <a href="#contact">Contact</a>
             <a href="dbdcswr.html">World Records</a>
             
@@ -395,7 +433,10 @@
         <h1>Dive into a new experience of Dead by Daylight</h1>
         <p></p>
         <button class="cta-button" onclick="toggleForm()">Register Now</button>
-        <a href="PerkSelector.html" class="cta-button">Go to Perk Selector</a>
+        <a href="PerkSelector.html" class="cta-button" style="font-size: 1.2em; background-color: transparent; border: 1px solid white;">Try Perk Selector</a>
+        <!-- Alternativ, falls doch lieber roter Background <a href="PerkSelector.html" class="cta-button">Go to Perk Selector</a> -->
+
+
     </section>
 
     <section id="about" class="section">
@@ -406,13 +447,13 @@
     <!-- Carousel Section -->
     <div class="carousel-container">
         <div class="carousel-slide active-slide">
-            <img src="Explanation.png" alt="Image 1">
+            <img src="Explanation.png" alt="Credit Usage">
         </div>
         <div class="carousel-slide">
-            <img src="Explanation1.png" alt="Image 2">
+            <img src="Explanation1.png" alt="Credit Limitation">
         </div>
         <div class="carousel-slide">
-            <img src="Explanation2.png" alt="Image 3">
+            <img src="Explanation2.png" alt="Perk and Killer Evaluation">
         </div>
 
     </div>
@@ -501,25 +542,22 @@
         </div>
     </section>
     
-    <section id="socials" class="section">
-        <h2>Our Socials</h2>
-        <p>For questions or further information, please reach out to us through our social media channels.</p>
-            <div class="social-icons">
+    <!-- Socials Floating Buttons -->
+    <div class="floating-socials">
         <a href="https://www.instagram.com/edward.pdo/" target="_blank" title="Instagram">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram Logo">
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/instagram-new.png" alt="Instagram">
         </a>
         <a href="https://www.twitch.tv/lo0m3" target="_blank" title="Twitch">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/twitch.png" alt="Twitch Logo">
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/twitch.png" alt="Twitch">
         </a>
         <a href="https://www.youtube.com/channel/UCFX1oin8XXRo3WTgnDEbt5Q/channels?sub_confirmation=1" target="_blank" title="YouTube">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/youtube-play.png" alt="YouTube Logo">
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/youtube-play.png" alt="YouTube">
         </a>
         <a href="https://discord.gg/6sgjZBb" target="_blank" title="Discord">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/discord-logo.png" alt="Discord Logo">
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/discord-logo.png" alt="Discord">
         </a>
-                
     </div>
-    </section>
+
 
     <section id="contact" class="section">
         <h2>Contact Us</h2>
