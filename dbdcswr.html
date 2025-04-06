@@ -990,7 +990,7 @@ ruleButtons.forEach(button => {
             icon.addEventListener('click', () => {
                 // Füge hier den Code hinzu, um die entsprechende Info anzuzeigen
                 const infoText = icon.getAttribute('data-info'); 
-                alert(infoText); // Beispiel: Information anzeigen
+                alert(infoText); // Bspw.: Information anzeigen
             });
         });
 
@@ -1038,7 +1038,7 @@ function showRules(event, category) {
     // Überprüfen, ob das Popup bereits angezeigt wird
     if (popup.style.display === 'block') {
         popup.style.display = 'none';
-        popup.style.zIndex = 100; // Setze den z-index zurück
+        popup.style.zIndex = 100; // Setzt den z-index zurück
     } else {
         popup.innerHTML = rulesContent;
         popup.style.display = 'block';
@@ -1050,6 +1050,74 @@ function closePopup() {
     document.getElementById('rulesPopup').style.display = 'none';
     document.getElementById('rulesPopup').style.zIndex = 100;
 }
+let currentPopupCategory = null; // Aktuelle Kategorie des Pop-ups
+
+function showRules(event, category) {
+    event.stopPropagation();
+    var popup = document.getElementById('rulesPopup');
+    var rulesContent = '';
+
+    // Überprüfe, ob das Pop-up bereits für diese Kategorie angezeigt wird
+    if (currentPopupCategory === category && popup.style.display === 'block') {
+        // Wenn ja, schließe das Pop-up
+        closePopup();
+        return; // Beendet die Funktion
+    }
+
+    // Inhalt des Pop-ups basierend auf der Kategorie festlegen
+    if (category === 'escape') {
+        rulesContent = `
+            <h3>The Streaks have been achieved under the following rules:</h3>
+            <ul>
+                <li>1. For each consecutive escape, the streak goes up by one</li>
+                <li>2. Dying by any means ends the streak</li>
+                <li>3. Games will not count/ neither end in a streak loss nor in an additional escape if:
+                    <ul class="subrules">
+                        <li>3.1 Hacking/ Cheating</li>
+                        <li>3.2 Lagswitch/ VPN Abuse/ Too high Ping</li>
+                        <li>3.3 Intentional griefing within the first Minute of the game (DCing etc.)</li>
+                        <li>3.4 Obvious game manipulation (e.g. Streamsniping)</li>
+                    </ul>
+                </li>
+            </ul>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button onclick="closePopup()">Close</button>
+            </div>`;
+    } else if (category === 'speedrun') {
+        rulesContent = `
+            <h3>The Speedrun Records have been achieved under the following rules:</h3>
+            <ul>
+                <li>1. Speedrun time starts when the game begins.</li>
+                <li>2. The timer stops once the Escape is achieved or 4 kills are made.</li>
+                <li>3. Any form of external interference (e.g., network issues) will result in disqualification.</li>
+            </ul>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button onclick="closePopup()">Close</button>
+            </div>`;
+    } else if (category === 'killstreak') {
+            rulesContent = `
+            <h3>The Killstreak Records have been achieved under the following rules:</h3>
+            <ul>
+                <li>1- Killstreaks are achieved by killing all 4 survivors in a row.</li>
+                <li>2. Each killstreak has to be recorded and uploaded.</li>
+                <li>3. Any form of external interference (e.g., network issues) will result in disqualification.</li>
+            </ul>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button onclick="closePopup()">Close</button>
+            </div>`;
+    }
+
+    // Inhalt des Pop-ups ersetzen und anzeigen
+    popup.innerHTML = rulesContent;
+    popup.style.display = 'block';
+    popup.style.zIndex = 101;
+    currentPopupCategory = category; // Setzt aktuelle Kategorien zurück
+
+function closePopup() {
+    document.getElementById('rulesPopup').style.display = 'none';
+    document.getElementById('rulesPopup').style.zIndex = 100;
+    currentPopupCategory = null; // Auch hier: setzt aktuelle KAtegorie zruück 
+}   
 </script>
 
 </body>
