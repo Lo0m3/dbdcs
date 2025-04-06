@@ -196,7 +196,7 @@
     
 <body>
     <header>
-        <a href="landing.html" class="logo">Dead by Daylight Championship</a>
+        <a href="landingdbdcs1.html" class="logo">Dead by Daylight Championship</a>
     </header>
 
     <section class="hero">
@@ -990,7 +990,7 @@ ruleButtons.forEach(button => {
             icon.addEventListener('click', () => {
                 // Füge hier den Code hinzu, um die entsprechende Info anzuzeigen
                 const infoText = icon.getAttribute('data-info'); 
-                alert(infoText); // Bspw.: Information anzeigen
+                alert(infoText); // Beispiel: Information anzeigen
             });
         });
 
@@ -1038,7 +1038,7 @@ function showRules(event, category) {
     // Überprüfen, ob das Popup bereits angezeigt wird
     if (popup.style.display === 'block') {
         popup.style.display = 'none';
-        popup.style.zIndex = 100; // Setzt den z-index zurück
+        popup.style.zIndex = 100; // Setze den z-index zurück
     } else {
         popup.innerHTML = rulesContent;
         popup.style.display = 'block';
