@@ -32,7 +32,7 @@
             justify-content: space-around;
             align-items: center;
             flex-wrap: nowrap;
-            overflow: hidden;
+            overflow: visible;
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
@@ -53,6 +53,34 @@
             color: #ffffff;
             border: 2px solid #f71515;
         }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
         /* Hauptinhalt */
         .hero {
@@ -69,6 +97,7 @@
             box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
             z-index: 1;
             margin-top: 60px;
+            position: static; /* position ändern */
         }
 
         .hero h1 {
@@ -243,7 +272,7 @@
             }
         }
         
-        /*.social-icons {
+       /* .social-icons {
             display: flex;
             justify-content: center;
             gap: 40px;
@@ -261,10 +290,10 @@
         }
 
         .social-icons img {
-            width: 50px; /* Anpassung der Icongröße wow
-        height: 50px;
+            width: 50px; /* Anpassung der Icongröße wow 
+            height: 50px;
         }*/
-            
+
         #contact {
             max-width: 100%;
             padding: 20px;
@@ -353,12 +382,13 @@
         }
 
         .floating-socials img {
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            height: 30px;
         }
 
     </style>
     <script>
+        
     let slideIndex = 0;
 
     function showSlides() {
@@ -408,7 +438,21 @@
             formContainer.style.display = "none";
         }
     }
-        
+    document.addEventListener('DOMContentLoaded', function() {
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const nav = document.querySelector('nav');
+
+    dropdown.addEventListener('click', function() {
+        if (dropdownContent.style.display === 'block') {
+            dropdownContent.style.display = 'none';
+            nav.style.overflowX = 'auto'; // Oder 'scroll', je nach Bedarf
+        } else {
+            dropdownContent.style.display = 'block';
+            nav.style.overflowX = 'visible';
+        }
+    });
+});
 </script>
 
 </head>
@@ -420,6 +464,13 @@
             <span style="border: 2px solid transparent; border-radius: 5px; padding: 10px;">
             <a href="PerkSelector.html">Perk Selector</a>
             </span>
+            <div class="dropdown">
+                <a href="#">DbDCS League</a>
+                <div class="dropdown-content">
+                    <a href="dbdcsl.html">League Overview</a>
+                    <a href="">More Coming Soon</a>
+                </div>
+            </div>            
             <a href="dbdcswr.html">World Records</a>
             <a href="#about">About Us</a>
             <a href="#rules">Guideline</a>
@@ -432,7 +483,7 @@
     <section class="hero">
         <h1>Dive into a new experience of Dead by Daylight</h1>
         <p></p>
-        <a href="PerkSelector.html" class="cta-button" style="font-size: 1.3em; background-color: transparent; border: 3px solid white;">Try Perk Selector</a>
+                <a href="PerkSelector.html" class="cta-button" style="font-size: 1.3em; background-color: transparent; border: 3px solid white;">Try Perk Selector</a>
         <button class="cta-button" onclick="toggleForm()">Register Now</button>
         <!-- Alternativ, falls doch lieber roter Background <a href="PerkSelector.html" class="cta-button">Go to Perk Selector</a> -->
 
