@@ -1,0 +1,256 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    color: #f0f0f0;
+    background: #0b0c0b;
+    overflow-x: hidden;
+}
+
+/* Header und Navigation */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    z-index: 10;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #f0f0f0;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    transition: color 0.3s;
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    color: #ffffff;
+    border: 2px solid #f71515;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+    padding: 0 20px;
+    background: url("FogAwaitsWebsite.png") no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+    margin-top: 80px;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 3em;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #9f1414;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    margin-top: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: #ff2525;
+}
+
+.section {
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section h2 {
+    color: #9f1414;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.section p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.league-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.result-item {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.guideline-section {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+.guideline-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.guideline-button {
+    padding: 10px 20px;
+    background-color: #ff5b00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.guideline-button img {
+    width: 20px;
+    height: auto;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.team-item {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+team-item img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #aaa;
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
+}
+        .floating-socials {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .floating-socials a {
+            background-color: #7b0000;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .floating-socials a:hover {
+            transform: scale(1.15);
+            background-color: #ff2323;
+        }
+
+        .floating-socials img {
+            width: 30px;
+            height: 30px;
+        }
